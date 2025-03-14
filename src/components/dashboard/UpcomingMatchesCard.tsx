@@ -61,7 +61,7 @@ const UpcomingMatchesCard: React.FC<UpcomingMatchesCardProps> = ({ matches }) =>
         <div className="mt-4 text-center">
           <Link
             to="/matches"
-            className="text-sm font-medium text-primary hover:underline"
+            className="text-sm font-medium text-white hover:underline"
           >
             View all matches
           </Link>
