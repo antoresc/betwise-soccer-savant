@@ -3,7 +3,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Home, Calendar, Users, Target, BarChart3, Trophy, ChevronLeft } from "lucide-react";
+import { Home, Calendar, Users, Target, BarChart3, ChevronLeft } from "lucide-react";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -38,11 +38,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       name: "Statistics",
       path: "/statistics",
       icon: <BarChart3 className="h-5 w-5" />,
-    },
-    {
-      name: "Competitions",
-      path: "/competitions",
-      icon: <Trophy className="h-5 w-5" />,
     },
   ];
 

@@ -1,9 +1,45 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Search, Menu } from "lucide-react";
+import { Search, Menu, ChevronDown } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { toast } from "@/hooks/use-toast";
+
+// Define competitions data
+const competitions = [
+  {
+    id: 1,
+    name: "Premier League",
+    country: "England",
+    logo: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+  },
+  {
+    id: 2,
+    name: "La Liga",
+    country: "Spain",
+    logo: "🇪🇸",
+  },
+  {
+    id: 3,
+    name: "Bundesliga",
+    country: "Germany",
+    logo: "🇩🇪",
+  },
+  {
+    id: 4,
+    name: "Serie A",
+    country: "Italy",
+    logo: "🇮🇹",
+  },
+  {
+    id: 5,
+    name: "Ligue 1",
+    country: "France",
+    logo: "🇫🇷",
+  },
+];
 
 interface HeaderProps {
   toggleSidebar: () => void;
@@ -11,6 +47,15 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
   const location = useLocation();
+  const [activeCompetition, setActiveCompetition] = useState(competitions[0]);
+  
+  const handleCompetitionChange = (competition: typeof competitions[0]) => {
+    setActiveCompetition(competition);
+    toast({
+      title: "League Changed",
+      description: `Switched to ${competition.name}`,
+    });
+  };
   
   return (
     <header className="sticky top-0 z-40 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
@@ -65,15 +110,37 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
           >
             Teams
           </Link>
-          <Link 
-            to="/tips" 
-            className={cn(
-              "transition-colors hover:text-foreground/80",
-              location.pathname === "/tips" ? "text-foreground" : "text-foreground/60"
-            )}
-          >
-            Betting Tips
-          </Link>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="flex items-center gap-1 p-0 h-auto font-medium text-sm">
+                <span className="text-base mr-1">{activeCompetition.logo}</span>
+                <span className={cn(
+                  "transition-colors hover:text-foreground/80",
+                  location.pathname === "/competitions" ? "text-foreground" : "text-foreground/60"
+                )}>
+                  {activeCompetition.name}
+                </span>
+                <ChevronDown className="h-4 w-4 opacity-70" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-56 bg-popover">
+              {competitions.map((competition) => (
+                <DropdownMenuItem 
+                  key={competition.id}
+                  onClick={() => handleCompetitionChange(competition)}
+                  className="cursor-pointer"
+                >
+                  <span className="text-base mr-2">{competition.logo}</span>
+                  <span>{competition.name}</span>
+                </DropdownMenuItem>
+              ))}
+              <DropdownMenuItem asChild>
+                <Link to="/competitions" className="cursor-pointer w-full">
+                  <span className="text-sm">View All Leagues</span>
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </nav>
       </div>
     </header>
