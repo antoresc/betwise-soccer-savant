@@ -2,7 +2,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Search, Menu } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 interface HeaderProps {
@@ -10,6 +10,8 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
+  const location = useLocation();
+  
   return (
     <header className="sticky top-0 z-40 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
       <div className="container h-16 flex items-center justify-between px-4 md:px-6">
@@ -50,7 +52,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
               to="/matches" 
               className={cn(
                 "transition-colors hover:text-foreground/80",
-                window.location.pathname === "/matches" ? "text-foreground" : "text-foreground/60"
+                location.pathname === "/matches" ? "text-foreground" : "text-foreground/60"
               )}
             >
               Matches
@@ -59,7 +61,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
               to="/teams" 
               className={cn(
                 "transition-colors hover:text-foreground/80",
-                window.location.pathname === "/teams" ? "text-foreground" : "text-foreground/60"
+                location.pathname === "/teams" ? "text-foreground" : "text-foreground/60"
               )}
             >
               Teams
@@ -68,7 +70,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
               to="/tips" 
               className={cn(
                 "transition-colors hover:text-foreground/80",
-                window.location.pathname === "/tips" ? "text-foreground" : "text-foreground/60"
+                location.pathname === "/tips" ? "text-foreground" : "text-foreground/60"
               )}
             >
               Betting Tips

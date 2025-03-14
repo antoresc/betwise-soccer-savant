@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Home, Calendar, Users, Target, BarChart3, Trophy, ChevronLeft } from "lucide-react";
@@ -11,6 +11,8 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
+  const location = useLocation();
+  
   const navItems = [
     {
       name: "Dashboard",
@@ -78,7 +80,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
               to={item.path}
               className={cn(
                 "flex h-10 items-center gap-3 rounded-md px-3 text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-foreground",
-                window.location.pathname === item.path && "bg-sidebar-accent text-sidebar-foreground"
+                location.pathname === item.path && "bg-sidebar-accent text-sidebar-foreground"
               )}
             >
               {item.icon}
