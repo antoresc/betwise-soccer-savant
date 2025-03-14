@@ -1,45 +1,12 @@
 
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { Search, Menu, ChevronDown } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { toast } from "@/hooks/use-toast";
-
-// Define competitions data
-const competitions = [
-  {
-    id: 1,
-    name: "Premier League",
-    country: "England",
-    logo: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-  },
-  {
-    id: 2,
-    name: "La Liga",
-    country: "Spain",
-    logo: "🇪🇸",
-  },
-  {
-    id: 3,
-    name: "Bundesliga",
-    country: "Germany",
-    logo: "🇩🇪",
-  },
-  {
-    id: 4,
-    name: "Serie A",
-    country: "Italy",
-    logo: "🇮🇹",
-  },
-  {
-    id: 5,
-    name: "Ligue 1",
-    country: "France",
-    logo: "🇫🇷",
-  },
-];
+import { useCompetition, competitions } from "@/contexts/CompetitionContext";
 
 interface HeaderProps {
   toggleSidebar: () => void;
@@ -47,7 +14,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
   const location = useLocation();
-  const [activeCompetition, setActiveCompetition] = useState(competitions[0]);
+  const { activeCompetition, setActiveCompetition } = useCompetition();
   
   const handleCompetitionChange = (competition: typeof competitions[0]) => {
     setActiveCompetition(competition);

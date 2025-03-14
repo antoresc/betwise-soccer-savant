@@ -6,15 +6,18 @@ import Layout from "@/components/layout/Layout";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from "recharts";
 import { FootballAPI } from "@/services/footballApi";
 import { useQuery } from "@tanstack/react-query";
+import { useCompetition } from "@/contexts/CompetitionContext";
 
 const Statistics = () => {
+  const { activeCompetition } = useCompetition();
+
   const { data: teams = [], isLoading: isLoadingTeams } = useQuery({
-    queryKey: ["teams"],
+    queryKey: ["teams", activeCompetition.id],
     queryFn: FootballAPI.getTeams,
   });
 
   const { data: players = [], isLoading: isLoadingPlayers } = useQuery({
-    queryKey: ["players"],
+    queryKey: ["players", activeCompetition.id],
     queryFn: FootballAPI.getPlayers,
   });
 
@@ -49,9 +52,11 @@ const Statistics = () => {
     <Layout>
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight">Statistics</h1>
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
+            {activeCompetition.name} <span className="text-bet-primary">{activeCompetition.logo}</span> Statistics
+          </h1>
           <p className="text-sm md:text-base text-muted-foreground mt-1">
-            Comprehensive football statistics and performance metrics
+            Comprehensive {activeCompetition.name} statistics and performance metrics
           </p>
         </div>
 

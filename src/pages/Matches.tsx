@@ -4,11 +4,13 @@ import Layout from "@/components/layout/Layout";
 import { FootballAPI, Match } from "@/services/footballApi";
 import MatchCard from "@/components/matches/MatchCard";
 import { useToast } from "@/components/ui/use-toast";
+import { useCompetition } from "@/contexts/CompetitionContext";
 
 const Matches = () => {
   const [matches, setMatches] = useState<Match[]>([]);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
+  const { activeCompetition } = useCompetition();
 
   useEffect(() => {
     const fetchMatches = async () => {
@@ -29,15 +31,17 @@ const Matches = () => {
     };
 
     fetchMatches();
-  }, [toast]);
+  }, [toast, activeCompetition]);
 
   return (
     <Layout>
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight">Upcoming Matches</h1>
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
+            {activeCompetition.name} <span className="text-bet-primary">{activeCompetition.logo}</span> Matches
+          </h1>
           <p className="text-sm md:text-base text-muted-foreground mt-1">
-            Browse and analyze upcoming football matches
+            Browse and analyze upcoming {activeCompetition.name} matches
           </p>
         </div>
 

@@ -4,6 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { CompetitionProvider } from "./contexts/CompetitionContext";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Matches from "./pages/Matches";
@@ -18,21 +19,23 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/matches" element={<Matches />} />
-          <Route path="/matches/:id" element={<MatchDetail />} />
-          <Route path="/tips" element={<Tips />} />
-          <Route path="/teams" element={<Teams />} />
-          <Route path="/statistics" element={<Statistics />} />
-          <Route path="/competitions" element={<Competitions />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <CompetitionProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/matches" element={<Matches />} />
+            <Route path="/matches/:id" element={<MatchDetail />} />
+            <Route path="/tips" element={<Tips />} />
+            <Route path="/teams" element={<Teams />} />
+            <Route path="/statistics" element={<Statistics />} />
+            <Route path="/competitions" element={<Competitions />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </CompetitionProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
