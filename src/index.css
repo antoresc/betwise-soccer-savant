@@ -33,7 +33,7 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
     --sidebar-background: 217 71% 23%;
     --sidebar-foreground: 210 40% 98%;
@@ -92,6 +92,36 @@
 
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
+  }
+
+  /* Modern card styles */
+  .card {
+    @apply transition-all duration-300;
+  }
+
+  /* Active nav link underline effect */
+  .nav-link-active {
+    @apply relative;
+  }
+  
+  .nav-link-active::after {
+    @apply absolute bottom-0 left-0 h-0.5 w-full bg-accent content-[''];
+    transform: scaleX(1);
+    transform-origin: bottom left;
+    transition: transform 0.3s ease;
+  }
+
+  .nav-link::after {
+    @apply absolute bottom-0 left-0 h-0.5 w-full bg-accent content-[''];
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease;
+  }
+
+  .nav-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
   }
 }
 
@@ -109,4 +139,80 @@
 
 .stat-neutral {
   @apply text-bet-muted font-medium;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.3s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.3s ease-out forwards;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Glass effect for cards and elements */
+.glass {
+  @apply bg-background/70 backdrop-blur-md border border-border/50;
+}
+
+/* Modern gradient backgrounds */
+.gradient-primary {
+  background: linear-gradient(135deg, #1a365d 0%, #2a4365 100%);
+}
+
+.gradient-accent {
+  background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+}
+
+.gradient-card {
+  background: linear-gradient(to right, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.1) 100%);
 }
