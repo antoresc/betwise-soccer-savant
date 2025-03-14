@@ -35,23 +35,23 @@ const Matches = () => {
     <Layout>
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Upcoming Matches</h1>
-          <p className="text-muted-foreground mt-1">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight">Upcoming Matches</h1>
+          <p className="text-sm md:text-base text-muted-foreground mt-1">
             Browse and analyze upcoming football matches
           </p>
         </div>
 
         {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <div
                 key={i}
-                className="h-80 rounded-lg bg-muted animate-pulse-slow"
+                className="h-64 sm:h-72 md:h-80 rounded-lg bg-muted animate-pulse-slow"
               ></div>
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {matches.map((match) => (
               <MatchCard key={match.id} match={match} />
             ))}

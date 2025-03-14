@@ -42,27 +42,27 @@ const StatsOverviewCard = () => {
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle className="text-xl font-bold">Performance Overview</CardTitle>
-        <CardDescription>
+      <CardHeader className="px-4 py-3 sm:px-6 sm:py-4">
+        <CardTitle className="text-lg sm:text-xl font-bold">Performance Overview</CardTitle>
+        <CardDescription className="text-xs sm:text-sm">
           Your predictions performance over the last 30 days
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+      <CardContent className="px-4 sm:px-6">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4">
           {stats.map((stat) => (
             <div
               key={stat.title}
-              className="rounded-lg border bg-card p-3 text-card-foreground shadow-sm"
+              className="rounded-lg border bg-card p-2 sm:p-3 text-card-foreground shadow-sm"
             >
               <div className="flex items-center justify-between">
-                <span className="text-sm font-medium">{stat.title}</span>
+                <span className="text-xs sm:text-sm font-medium">{stat.title}</span>
                 {stat.icon}
               </div>
               <div className="mt-1">
-                <span className="text-2xl font-bold">{stat.value}</span>
+                <span className="text-lg sm:text-2xl font-bold">{stat.value}</span>
                 <span
-                  className={`ml-2 text-xs font-medium ${
+                  className={`ml-1 sm:ml-2 text-xs font-medium ${
                     stat.increasing ? "text-bet-success" : "text-bet-danger"
                   }`}
                 >
