@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import Layout from "@/components/layout/Layout";
 import { FootballAPI, BettingTip } from "@/services/footballApi";
@@ -10,13 +9,15 @@ import { format, parseISO } from "date-fns";
 import { Target, Calendar, Clock, ChevronRight, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useCompetition } from "@/contexts/CompetitionContext";
-
 const Tips = () => {
   const [tips, setTips] = useState<BettingTip[]>([]);
   const [loading, setLoading] = useState(true);
-  const { toast } = useToast();
-  const { activeCompetition } = useCompetition();
-
+  const {
+    toast
+  } = useToast();
+  const {
+    activeCompetition
+  } = useCompetition();
   useEffect(() => {
     const fetchTips = async () => {
       try {
@@ -28,18 +29,15 @@ const Tips = () => {
         toast({
           title: "Error loading betting tips",
           description: "There was a problem loading the betting tips data.",
-          variant: "destructive",
+          variant: "destructive"
         });
       } finally {
         setLoading(false);
       }
     };
-
     fetchTips();
   }, [toast, activeCompetition]);
-
-  return (
-    <Layout>
+  return <Layout>
       <div className="space-y-6">
         <div>
           <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
@@ -51,7 +49,7 @@ const Tips = () => {
         </div>
 
         <Card className="mb-8">
-          <CardHeader>
+          <CardHeader className="bg-bet-highlight">
             <div className="flex items-center gap-3">
               <Target className="h-5 w-5 text-bet-accent" />
               <CardTitle>Daily Tips Overview</CardTitle>
@@ -60,7 +58,7 @@ const Tips = () => {
               Our AI system analyzes thousands of data points to provide the most accurate betting predictions
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="bg-bet-highlight">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <div className="rounded-lg border bg-card p-3 text-card-foreground shadow-sm">
                 <div className="flex items-center justify-between">
@@ -110,16 +108,7 @@ const Tips = () => {
         </Card>
 
         <div className="grid grid-cols-1 gap-6">
-          {loading ? (
-            [...Array(4)].map((_, i) => (
-              <div
-                key={i}
-                className="h-48 rounded-lg bg-muted animate-pulse-slow"
-              ></div>
-            ))
-          ) : tips.length > 0 ? (
-            tips.map((tip) => (
-              <Card key={tip.matchId} className="overflow-hidden">
+          {loading ? [...Array(4)].map((_, i) => <div key={i} className="h-48 rounded-lg bg-muted animate-pulse-slow"></div>) : tips.length > 0 ? tips.map(tip => <Card key={tip.matchId} className="overflow-hidden">
                 <CardContent className="p-6">
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div className="flex flex-col md:flex-row md:items-center gap-4">
@@ -135,22 +124,14 @@ const Tips = () => {
                         
                         <div className="flex items-center gap-3">
                           <div className="flex flex-col items-center">
-                            <img 
-                              src={tip.homeTeamLogo} 
-                              alt={tip.homeTeam} 
-                              className="h-10 w-10 object-contain mb-1" 
-                            />
+                            <img src={tip.homeTeamLogo} alt={tip.homeTeam} className="h-10 w-10 object-contain mb-1" />
                             <span className="text-sm font-medium">{tip.homeTeam}</span>
                           </div>
                           
                           <span className="text-sm font-medium">vs</span>
                           
                           <div className="flex flex-col items-center">
-                            <img 
-                              src={tip.awayTeamLogo} 
-                              alt={tip.awayTeam} 
-                              className="h-10 w-10 object-contain mb-1" 
-                            />
+                            <img src={tip.awayTeamLogo} alt={tip.awayTeam} className="h-10 w-10 object-contain mb-1" />
                             <span className="text-sm font-medium">{tip.awayTeam}</span>
                           </div>
                         </div>
@@ -165,14 +146,7 @@ const Tips = () => {
                           <div className="px-2 py-0.5 bg-muted rounded-full">
                             Odds: {tip.odds.toFixed(2)}
                           </div>
-                          <div 
-                            className={cn(
-                              "px-2 py-0.5 rounded-full",
-                              tip.confidence >= 70 ? "bg-bet-success/20 text-bet-success" :
-                              tip.confidence >= 50 ? "bg-bet-warning/20 text-bet-warning" :
-                              "bg-bet-danger/20 text-bet-danger"
-                            )}
-                          >
+                          <div className={cn("px-2 py-0.5 rounded-full", tip.confidence >= 70 ? "bg-bet-success/20 text-bet-success" : tip.confidence >= 50 ? "bg-bet-warning/20 text-bet-warning" : "bg-bet-danger/20 text-bet-danger")}>
                             {tip.confidence}% confidence
                           </div>
                         </div>
@@ -190,17 +164,11 @@ const Tips = () => {
                     </div>
                   </div>
                 </CardContent>
-              </Card>
-            ))
-          ) : (
-            <div className="text-center py-12">
+              </Card>) : <div className="text-center py-12">
               <p className="text-muted-foreground">No betting tips found for {activeCompetition.name}</p>
-            </div>
-          )}
+            </div>}
         </div>
       </div>
-    </Layout>
-  );
+    </Layout>;
 };
-
 export default Tips;
