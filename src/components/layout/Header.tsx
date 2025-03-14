@@ -38,45 +38,43 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
           </Link>
         </div>
         
-        <div className="flex items-center gap-4">
-          <div className="relative w-full max-w-xs">
-            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-            <input
-              type="search"
-              placeholder="Search matches, teams..."
-              className="w-full rounded-md border border-input bg-background pl-8 pr-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-            />
-          </div>
-          <nav className="hidden md:flex gap-6 text-sm font-medium">
-            <Link 
-              to="/matches" 
-              className={cn(
-                "transition-colors hover:text-foreground/80",
-                location.pathname === "/matches" ? "text-foreground" : "text-foreground/60"
-              )}
-            >
-              Matches
-            </Link>
-            <Link 
-              to="/teams" 
-              className={cn(
-                "transition-colors hover:text-foreground/80",
-                location.pathname === "/teams" ? "text-foreground" : "text-foreground/60"
-              )}
-            >
-              Teams
-            </Link>
-            <Link 
-              to="/tips" 
-              className={cn(
-                "transition-colors hover:text-foreground/80",
-                location.pathname === "/tips" ? "text-foreground" : "text-foreground/60"
-              )}
-            >
-              Betting Tips
-            </Link>
-          </nav>
+        <div className="relative w-full max-w-xs">
+          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+          <input
+            type="search"
+            placeholder="Search matches, teams..."
+            className="w-full rounded-md border border-input bg-background pl-8 pr-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          />
         </div>
+        <nav className="hidden md:flex gap-6 text-sm font-medium">
+          <Link 
+            to="/matches" 
+            className={cn(
+              "transition-colors hover:text-foreground/80",
+              location.pathname === "/matches" ? "text-foreground" : "text-foreground/60"
+            )}
+          >
+            Matches
+          </Link>
+          <Link 
+            to="/teams" 
+            className={cn(
+              "transition-colors hover:text-foreground/80",
+              location.pathname === "/teams" ? "text-foreground" : "text-foreground/60"
+            )}
+          >
+            Teams
+          </Link>
+          <Link 
+            to="/tips" 
+            className={cn(
+              "transition-colors hover:text-foreground/80",
+              location.pathname === "/tips" ? "text-foreground" : "text-foreground/60"
+            )}
+          >
+            Betting Tips
+          </Link>
+        </nav>
       </div>
     </header>
   );
