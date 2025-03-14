@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import Layout from "@/components/layout/Layout";
 import { FootballAPI, Match, Player, BettingTip } from "@/services/footballApi";
@@ -22,11 +21,11 @@ const Index = () => {
       try {
         setLoading(true);
         
-        // Fetch data in parallel
+        // Fetch data in parallel, passing competition ID to filter data
         const [matchesData, playersData, tipsData] = await Promise.all([
-          FootballAPI.getUpcomingMatches(),
-          FootballAPI.getPlayers(),
-          FootballAPI.getBettingTips()
+          FootballAPI.getUpcomingMatches(activeCompetition.id),
+          FootballAPI.getPlayers(activeCompetition.id),
+          FootballAPI.getBettingTips(activeCompetition.id)
         ]);
         
         setMatches(matchesData);

@@ -9,17 +9,19 @@ import { Link } from "react-router-dom";
 import { format, parseISO } from "date-fns";
 import { Target, Calendar, Clock, ChevronRight, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useCompetition } from "@/contexts/CompetitionContext";
 
 const Tips = () => {
   const [tips, setTips] = useState<BettingTip[]>([]);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
+  const { activeCompetition } = useCompetition();
 
   useEffect(() => {
     const fetchTips = async () => {
       try {
         setLoading(true);
-        const data = await FootballAPI.getBettingTips();
+        const data = await FootballAPI.getBettingTips(activeCompetition.id);
         setTips(data);
       } catch (error) {
         console.error("Failed to fetch betting tips:", error);
@@ -34,14 +36,16 @@ const Tips = () => {
     };
 
     fetchTips();
-  }, [toast]);
+  }, [toast, activeCompetition]);
 
   return (
     <Layout>
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Betting Tips</h1>
-          <p className="text-muted-foreground mt-1">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
+            {activeCompetition.name} <span className="text-bet-primary">{activeCompetition.logo}</span> Betting Tips
+          </h1>
+          <p className="text-sm md:text-base text-muted-foreground mt-1">
             Expert recommendations based on advanced statistical analysis
           </p>
         </div>
@@ -113,7 +117,7 @@ const Tips = () => {
                 className="h-48 rounded-lg bg-muted animate-pulse-slow"
               ></div>
             ))
-          ) : (
+          ) : tips.length > 0 ? (
             tips.map((tip) => (
               <Card key={tip.matchId} className="overflow-hidden">
                 <CardContent className="p-6">
@@ -188,6 +192,10 @@ const Tips = () => {
                 </CardContent>
               </Card>
             ))
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-muted-foreground">No betting tips found for {activeCompetition.name}</p>
+            </div>
           )}
         </div>
       </div>

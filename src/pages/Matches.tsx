@@ -16,7 +16,8 @@ const Matches = () => {
     const fetchMatches = async () => {
       try {
         setLoading(true);
-        const data = await FootballAPI.getUpcomingMatches();
+        // Pass the competition ID to filter matches
+        const data = await FootballAPI.getUpcomingMatches(activeCompetition.id);
         setMatches(data);
       } catch (error) {
         console.error("Failed to fetch matches:", error);
@@ -31,7 +32,7 @@ const Matches = () => {
     };
 
     fetchMatches();
-  }, [toast, activeCompetition]);
+  }, [toast, activeCompetition]); // Add activeCompetition as a dependency
 
   return (
     <Layout>
@@ -54,11 +55,15 @@ const Matches = () => {
               ></div>
             ))}
           </div>
-        ) : (
+        ) : matches.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {matches.map((match) => (
               <MatchCard key={match.id} match={match} />
             ))}
+          </div>
+        ) : (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">No matches found for {activeCompetition.name}</p>
           </div>
         )}
       </div>

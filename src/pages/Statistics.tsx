@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -13,12 +12,12 @@ const Statistics = () => {
 
   const { data: teams = [], isLoading: isLoadingTeams } = useQuery({
     queryKey: ["teams", activeCompetition.id],
-    queryFn: FootballAPI.getTeams,
+    queryFn: () => FootballAPI.getTeams(activeCompetition.id),
   });
 
   const { data: players = [], isLoading: isLoadingPlayers } = useQuery({
     queryKey: ["players", activeCompetition.id],
-    queryFn: FootballAPI.getPlayers,
+    queryFn: () => FootballAPI.getPlayers(activeCompetition.id),
   });
 
   // Goals per team data
