@@ -1,9 +1,13 @@
 
-import React from "react";
+import React, { useState } from "react";
 import Layout from "@/components/layout/Layout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
+import { ChevronDown } from "lucide-react";
+import { toast } from "@/hooks/use-toast";
 
 const competitions = [
   {
@@ -81,14 +85,48 @@ const competitions = [
 ];
 
 const Competitions = () => {
+  const [activeCompetition, setActiveCompetition] = useState<typeof competitions[0]>(competitions[0]);
+
+  const handleCompetitionChange = (competition: typeof competitions[0]) => {
+    setActiveCompetition(competition);
+    toast({
+      title: "League Changed",
+      description: `Switched to ${competition.name}`,
+    });
+  };
+
   return (
     <Layout>
       <div className="container py-6">
-        <h1 className="text-3xl font-bold mb-6">Football Competitions</h1>
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-3xl font-bold">Football Leagues</h1>
+          
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" className="flex items-center gap-2">
+                <span className="text-lg mr-1">{activeCompetition.logo}</span>
+                {activeCompetition.name}
+                <ChevronDown className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-56">
+              {competitions.map((competition) => (
+                <DropdownMenuItem 
+                  key={competition.id}
+                  onClick={() => handleCompetitionChange(competition)}
+                  className="cursor-pointer"
+                >
+                  <span className="text-lg mr-2">{competition.logo}</span>
+                  <span>{competition.name}</span>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
         
         <Tabs defaultValue="all" className="mb-8">
           <TabsList>
-            <TabsTrigger value="all">All Competitions</TabsTrigger>
+            <TabsTrigger value="all">All Leagues</TabsTrigger>
             <TabsTrigger value="europe">European</TabsTrigger>
             <TabsTrigger value="domestic">Domestic Leagues</TabsTrigger>
             <TabsTrigger value="cups">Cup Competitions</TabsTrigger>
