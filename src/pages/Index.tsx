@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import Layout from "@/components/layout/Layout";
 import { FootballAPI, Match, Player, BettingTip } from "@/services/footballApi";
@@ -53,28 +54,34 @@ const Index = () => {
 
   return (
     <Layout>
-      <div className="space-y-6">
-        <div>
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
-            Welcome to BetWise <span className="text-bet-primary">{activeCompetition.logo}</span>
-          </h1>
-          <p className="text-sm md:text-base text-muted-foreground mt-1">
-            Your smart football betting assistant for {activeCompetition.name} powered by advanced statistics
-          </p>
+      <div className="space-y-6 animate-fade-in">
+        <div className="relative overflow-hidden p-4 rounded-lg bg-gradient-to-r from-[#0D0630] via-[#18314F] to-[#384E77] animate-gradient-shift">
+          <div className="relative z-10">
+            <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-white">
+              Welcome to BetWise <span className="text-accent animate-pulse-slow">{activeCompetition.logo}</span>
+            </h1>
+            <p className="text-sm md:text-base text-white/80 mt-1 max-w-2xl">
+              Your smart football betting assistant for {activeCompetition.name} powered by advanced statistics
+            </p>
+          </div>
+          <div className="absolute top-0 right-0 w-64 h-64 bg-[#384E77]/20 rounded-full filter blur-3xl -translate-y-1/2 translate-x-1/3"></div>
+          <div className="absolute bottom-0 left-0 w-40 h-40 bg-[#0D0630]/30 rounded-full filter blur-2xl -translate-x-1/4 translate-y-1/3"></div>
         </div>
         
-        <StatsOverviewCard />
+        <div className="animate-fade-in" style={{ animationDelay: "100ms" }}>
+          <StatsOverviewCard />
+        </div>
         
         <div className="grid gap-6 grid-cols-1 lg:grid-cols-3">
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 animate-fade-in" style={{ animationDelay: "200ms" }}>
             <UpcomingMatchesCard matches={matches} />
           </div>
-          <div>
+          <div className="animate-fade-in" style={{ animationDelay: "300ms" }}>
             <BettingTipsCard tips={tips} />
           </div>
         </div>
         
-        <div>
+        <div className="animate-fade-in" style={{ animationDelay: "400ms" }}>
           <TopPlayersCard players={players} />
         </div>
       </div>

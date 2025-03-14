@@ -25,7 +25,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
   };
   
   return (
-    <header className="sticky top-0 z-40 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
+    <header className="sticky top-0 z-40 w-full bg-background/30 backdrop-blur-xl supports-[backdrop-filter]:bg-background/20 border-b border-[#384E77]/20 animate-fade-in">
       <div className="container h-16 flex items-center justify-between px-4 md:px-6">
         <div className="flex items-center gap-2">
           <Button
@@ -39,14 +39,14 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
           </Button>
           <Link
             to="/"
-            className="flex items-center gap-2 font-semibold transition-transform hover:scale-105"
+            className="flex items-center gap-2 font-semibold transition-all duration-300 hover:scale-105 group"
           >
-            <div className="relative size-8 overflow-hidden rounded-full bg-gradient-to-br from-bet-primary to-bet-accent animate-pulse-slow">
+            <div className="relative size-8 overflow-hidden rounded-full bg-gradient-to-br from-[#0D0630] to-[#384E77] animate-pulse-slow group-hover:animate-glow">
               <div className="absolute inset-0 flex items-center justify-center text-white font-bold text-sm">
                 BS
               </div>
             </div>
-            <span className="hidden md:inline-block text-xl">BetWise</span>
+            <span className="hidden md:inline-block text-xl bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/80 group-hover:from-white group-hover:to-foreground/90 transition-all duration-500">BetWise</span>
           </Link>
         </div>
         
@@ -75,7 +75,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
           </Link>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="flex items-center gap-1 p-0 h-auto font-medium text-sm transition-transform hover:scale-105">
+              <Button variant="ghost" className="flex items-center gap-1 p-0 h-auto font-medium text-sm transition-transform hover:scale-105 hover:bg-transparent">
                 <span className="text-base mr-1">{activeCompetition.logo}</span>
                 <span className={cn(
                   "transition-colors hover:text-foreground/80",
@@ -86,19 +86,19 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
                 <ChevronDown className="h-4 w-4 opacity-70" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56 bg-popover animate-fade-in">
+            <DropdownMenuContent align="end" className="w-56 bg-[#18314F]/90 backdrop-blur-lg border border-[#384E77]/30 animate-fade-in">
               {competitions.map((competition) => (
                 <DropdownMenuItem 
                   key={competition.id}
                   onClick={() => handleCompetitionChange(competition)}
-                  className="cursor-pointer transition-colors hover:bg-accent/20"
+                  className="cursor-pointer transition-all duration-200 hover:bg-[#384E77]/50 hover:translate-x-1"
                 >
                   <span className="text-base mr-2">{competition.logo}</span>
                   <span>{competition.name}</span>
                 </DropdownMenuItem>
               ))}
               <DropdownMenuItem asChild>
-                <Link to="/competitions" className="cursor-pointer w-full transition-colors hover:bg-accent/20">
+                <Link to="/competitions" className="cursor-pointer w-full transition-all duration-200 hover:bg-[#384E77]/50 hover:translate-x-1">
                   <span className="text-sm">View All Leagues</span>
                 </Link>
               </DropdownMenuItem>
